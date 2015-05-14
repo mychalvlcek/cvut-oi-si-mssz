@@ -1,0 +1,78 @@
+%!TEX root=../oi-magistr-si.tex
+\section[TPJ - Statická sémantika]{Statická sémantika: typy, polymorfní typy, typy vyššího řádu, rekonstrukce (inference) typů, abstraktní typy.}
+
+Statická sémantika je řešena při překladu programu, zde jsou definovány a deklarovány jednotlivá pravidla a prvky programovacího jazyka. V těchto prvcích je zahrnuta jazyková konstrukce, její typy parametrů, význam příkazů a další prvky. Statická sémantika dále kontroluje statické typy a práci s tabulkou definovaných programových symbolů.
+
+\begin{itemize}[itemsep=0px]
+\item Staticky typované jazyky požadují uvedení datového typu u každé deklarace. Zde nelze deklarovat proměnnou, či funkci nebo objekt bez zadání datového typu.
+\item Všechny typové kontroly jsou prováděny staticky při překladu. Už při překladu má být každé proměnné přiřazen datový typ.
+\item Je možné daný datový typ přímo přetypovat. Přetypování především slouží k obcházení typových kontrol.
+\item \textbf{Výhodou statického typování je lepší možnost odhalení typových chyb.}
+\item Hlavní nevýhodou této metody je větší složitost programových konstrukcí, délka zdrojového kódu a tím i menší pružnost programovacího jazyka.
+\item K nejčastěji vyskytovaným běhovým chybám patří přetečení datového typu.
+\item Mezi neznámější zástupce staticky typovaných jazyků patří Java, Ada a jazyk C.
+\end{itemize}
+
+\subsection{Typy}
+
+$$\Gamma \vdash e : A \qquad \text{\uv{$e$ je well-formed term typu $A$ v prostředí $\Gamma$}}$$
+
+\begin{itemize}[itemsep=0px]
+\item Typování
+\begin{itemize}
+\item \textbf{statické} - formálně specifikováno typovým systémem (judgements, typová pravidla, prostředí). Typová pravidla rozhodují platnost rozhodnutí (judgements) na základě jiných rozhodnutí o kterých je známo, že jsou platné.
+\item \textbf{dynamické}
+\end{itemize}
+\item Typ je množina přípustných hodnot a operací s nimi.
+\item \textbf{TopType}
+\item \textbf{Type preservation} - zachování typu během přepisovací relace $\forall e,e'\in Expr:(\vdash e:t) \wedge e \rightsquigarrow e' \Rightarrow (\vdash e':t)$
+\item \textbf{Progress} - když mám nějaký term v konfiguraci, tak pak to je buď finální konfigurace, nebo lze ještě nejméně jednou přepsat. Tzn. dobře otypovaný term neskončí ve \textit{stuck} stavu (stav, pro který není definován výstup). (důkaz lze udělat analýzou pravidel). $\forall e \in Expr: (\vdash e:t) \Rightarrow e \in (Num \cup Bool) \vee \exists e' \in Expr: e \rightsquigarrow e'$.
+\item Type preservation + progress = \textbf{Soundness}. An argument is sound if and only if: \textit{The argument is valid} and \textit{All of its premises are true}. (i.e. All men are mortal. Socrates is a man. Therefore, Socrates is mortal.)
+\item \textbf{Terminace} - důkaz např pomocí \textit{energie}, nadefinuji \uv{energii}, nadefinuji, že při každém přepsání se musí snížit.
+\item \textbf{Determinismus} - programovací jazyk je deterministický právě tehdy když existuje právě jeden výstup pro každý pár \textit{programu} a \textit{vstupů}.
+$\forall v,v' \in (Num \cup Bool): \forall e \in Expr : e \rightsquigarrow^* v \wedge e \rightsquigarrow^* v' \Rightarrow v = v'$. Platí to, protože platí konfluence relace.
+\item \textbf{Konfluence} - \uv{strom vyhodnocování relace se rozdělí a pak se zase spojí}.
+\end{itemize}
+
+\subsection{Polymorfní typy}
+Polymorfní typ je typ, jehož operace mohou být aplikovány na hodnoty jiného typu.
+\begin{itemize}
+\item \textbf{Rekurzivní} - používají se na zakodování seznamů a stromů
+\item \textbf{Univerzální}
+\item \textbf{parametrický polymorfismus} - pomocí něj lze zapsat funkce jedním stylem a zároveň zachovat bezpečné typování. Tzn. funkce je zapsána genericky a umí zpracovávat vstupy bez ohledu na jejich typ. Typický příklad je třeba funkce append která se může zavolat s jakýmkoliv typem a správně se vyhodnotí. Není potřeba deklarovat \texttt{append :Integer} nebo \texttt{append:Bool}.
+\item \textbf{ad-hoc polymorfismus} - jedna funkce může mít mnoho implementací na základě zpracování jednotlivých typů - přetěžování funkcí v Javě.
+\end{itemize}
+
+
+
+\subsection{Typy vyššího řádu}
+\begin{itemize}
+\item Product Type
+\item Union Type
+\item Function Type
+\item Record Type
+\end{itemize}
+
+Jde o takzvané monády a debuggable functions (tohle je spíš možné využití). 
+
+\paragraph{Monády} - umožňují řetězit procedury za pomocí čistě funkcionálního programování. Skládají se ze dvou operací a to bind a return(unit). 
+
+\noindent \textit{\uv{In functional programming, a monad is a structure that represents computations defined as sequences of steps: a type with a monad structure defines what it means to chain operations, or nest functions of that type together. This allows the programmer to build pipelines that process data in steps, in which each action is decorated with additional processing rules provided by the monad.}}
+
+
+\subsection{Rekonstrukce typů}
+Schopnost z proměnné vyvodit její typ. Je to vlastnost některých silně staticky typovaných jazyků.
+
+\noindent \textit{\uv{Type inference refers to the automatic deduction of the data type of an expression in a programming language. If some, but not all, type annotations are already present it is referred to as type reconstruction.}}
+
+Například v csharpu, stačí místo typu psát klíčové slovo \texttt{var}.
+
+\begin{verbatim}
+var results = new Car();
+// results je typu Car
+\end{verbatim}
+
+\subsection{Abstraktní typy}
+Příkladem jsou Abstraktní třídy v Javě. Vyskytují se hlavně ve staticky typovaných jazycích.
+
+Fronta, HashMapa, Množina (Set), Seznam (List), Zásobník (Stack), ...

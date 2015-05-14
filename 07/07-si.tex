@@ -1,0 +1,82 @@
+%!TEX root=../oi-magistr-si.tex
+\section[OSP - Open source,git,lincence]{Techniky správy a organizace rozsáhlých softwarových projektů. Nástroje pro správu verzí zdrojových kódů, sledování chyb, pro automatické generování dokumentace a podporu orientace v rozsáhlých projektech. Způsoby komunikace mezi vývojáři navzájem a i s uživateli. Systémy pro sledování a řešení chyb a uživatelskou podporu. Open-source licence a z nich vyplývající práva a licence. Postup začlenění úpravy (patche) do velkého open-source projektu (např. Linuxové jádro)}
+
+\paragraph{Motivace pro verzování zdrojového kódu} Verzování kódu umožňuje sdílení kódu mezi vývojáři, zálohování, paralelní vývoj v několika souběžných větvích, vrácení se ke konkrétní revizi kódu, zjištění autorství nebo zobrazení statistik. Bez verzovacího systému není možná efektivní spolupráce více vývojářů na jednom projektu. Verzovací systém přináší výhody i v případě, že na projektu pracuje jediný vývojář.
+
+\subsection{Nástroje pro správu verzí kódu}
+GIT je distribuovaný SCM\footnote{Source Code Management} od Linuse Torvaldse. Každá working copy je zároveň repozitář, nezávislé na centrálním serveru. Spoustu operací jako merge, branch,... lokálně. Commity jsou hash celé historie vedoucí ke commitu. Nevýhoda: častější konflikty Subversion (SVN) je centrální SCM, ale rozšířený = dobré nástroje, GUI atd. Míň konfliktů, ale závislost na serveru. CVS podobné SVN ale starší, nevýhody: drahé branchování, problémy s Unicode, netrackuje přejmenovávání a mazání souborů.
+
+\subsection{Nástroje pro sledování chyb (bug trackers)} Jsou nástroje (např. bugzilla), které sledují a soustřeďují nalezené chyby. Každá chyba má vypsaný svůj \textit{ticket}, ve kterém jsou veškeré informace k chybě: popis, priorita, reportující osoba, přiřazená osoba, návrh úpravy (např. v podobě patche).
+
+\subsection{Nástroje pro automatické generování dokumentace}
+Javadoc generuje HTML dokumentaci z komentářů v Java kódu, Doxygen je multijazykový generátor dokumentace z kódu, Enterprise Architect umí generovat UML diagramy z kódu.
+
+\subsection{Systémy pro spolupráci mezi vývojáři}
+GitHub je populární sociální platforma pro vývojáře na hosting a spolupráci open-source projektů založený na použítí Gitu, Trac je project management systém v Pythonu, který si můžete nasadit na vlastní server, obsahuje wiki, bug tracking, time management, etc. Spíše pro menší projekty. JIRA je SaaS systém podobný Tracu se spoustou pluginů, hodí se pro větší projekty.
+
+
+\begin{itemize}[itemsep=0px]
+\item Google Groups a podobné mailing listy mohou také sloužit k podpoře.
+\item wiki stránky
+\item fóra
+\end{itemize}
+
+\subsection{Licence}
+Svobodný software je software, který respektuje svobodu svých uživatelů a poskytuje jim čtyři základní svobody, které svobodný software definují (publikace FSF 1986):
+
+\begin{enumerate}[itemsep=0px]
+\item svoboda používat program za jakýmkoliv účelem
+\item svoboda zkoumat a upravovat program (předpokladem je přístup
+ke zdrojovému kódu)
+\item svoboda šířit původní verzi programu
+\item svoboda šířit upravenou verzi programu
+\end{enumerate}
+
+\begin{itemize}[itemsep=0px]
+\item \textbf{Komerční software} – licence daná smluvními podmínkami jež uživatel potvrzuje při nákupu SW
+\item \textbf{Freeware} – zdarma, většinou bez zdrojových kódů, podmínky mohou omezovat další šíření, (komerční) použití, zkoumání
+\item \textbf{Shareware} – jako freeware, ale specifikuje pro které druhy použití je nutné pořídit placenou verzi
+\item \textbf{Permisivní} (akademické) licence (BSD, MIT) – povolují použití/integraci do komerčního SW, vyžadují jen uvádění autora/ů (to je i instituce)
+\item \textbf{Copyleftové} (reciproční) licence (GPL, LGPL, MPL)
+vyžadují zahrnutí uživatelů do okruhu oprávněných osob k právu nakládat s dílem (modifikovat ho a šířit za stejných podmínek)
+\end{itemize}
+\paragraph{Upozornění:} Definice open-source nevyžaduje \textit{copyleft}.
+
+\subsubsection{BSD (Berkeley Software Distribution)}
+BSD licence je licence pro svobodný software, mezi kterými je jednou z nejsvobodnějších. Umožňuje volné šíření licencovaného obsahu, přičemž vyžaduje pouze uvedení autora a informace o licenci, spolu s upozorněním na zřeknutí se odpovědnosti za dílo.
+
+\subsubsection{MIT License}
+
+Licence podobná BSD licenci umožňuje se software nakládat téměř libovolně (používat, kopírovat, modifikovat, slučovat, publikovat, distribuovat či prodávat), jedinou podmínkou je zahrnutí textu licence do všech kopií a odvozenin software.
+
+\subsubsection{Apache License}
+Stejné myšlenkové základy jako licence BSD a MIT. Výslovná zmínka možnosti šířit odvozená díla pod jinou kompatibilní licencí.
+
+\subsubsection{GNU GPL (GNU General Public License)}
+
+GPL je nejpopulárnějším a dobře známým příkladem silně copyleftové licence, která vyžaduje, aby byla odvozená díla dostupná pod toutéž licencí. 
+
+GNU General Public License. Software šířený pod licencí GPL je možno volně používat, modifikovat i šířit, ale za předpokladu, že tento software bude šířen bezplatně (případně za distribuční náklady) s možností získat bezplatně zdrojové kódy. Toto opatření se týká nejen samotného softwaru, ale i softwaru, který je od něj odvozen. Na produkty šířené pod GPL se nevztahuje žádná záruka. Licence je schválená sdružením OSI a plně odpovídá Debian Free Software Guidelines.
+
+V rámci této filosofie je řečeno, že poskytuje uživatelům počítačového programu práva svobodného softwaru a používá copyleft k zajištění, aby byly tyto svobody ochráněny, i když je dílo změněno nebo k něčemu přidáno. Toto je rozdíl oproti permisivním licencím svobodného softwaru, jejímž typickým případem jsou BSD licence
+
+\subsubsection{GNU LGPL (GNU Lesser General Public License)}
+
+Lesser/Library GPL. Licence je kompatibilní s licencí GPL. Pod touto licencí se šíří zejména knihovny, protože narozdíl od licence GPL umožňuje nalinkování LGPL knihovny i do programu, který není šířen pod GPL.
+
+\subsubsection{MPL (Mozilla Public License)}
+Mozilla Public License. Základním elementem pokrytým licencí je každý jednotlivý zdrojový soubor. Autor takového souboru umožňuje komukoliv používat, měnit a distribuovat jeho zdrojový kód (i jako součást většího díla). Každá změna původních souborů je krytá licencí, tzn. musí se tedy zveřejnit. To samé platí pokud přenesete část původního souboru do nového souboru, tj. celý nový soubor je pak nezbytné zveřejnit. Pokud vytváříte nový produkt přidáním nových souborů, můžete pro tyto nové soubory použít libovolnou licenci. Binární verze lze licencovat libovolně, pokud to není výslovně v rozporu s MPL (zákaz distribuce zdrojů). Produkty pod touto licencí jsou distribuované jak jsou ("as is"), tj. bez záruk libovolného druhu.
+
+\subsubsection{CreativeCommons}
+Je license vhodná pro jakýkoli obsah, nejenom pro software. Do license si člověk může dát 1-4 z těchto atributů:
+\begin{itemize}[itemsep=0px]
+\item Attribution - nutno uvést autora originálního projektu
+\item Noncommercial - možno upravovat jenom pro nekomerční účely
+\item NoDerivatives - možno pouze kopírovat dané dílo, ale nikoliv ho upravovat
+\item Share-alike - znamená virální copyleft
+\end{itemize}
+
+
+\subsection{Kontribuce do projektu}
+TODO
+% http://git-scm.com/book/cs/v1/Distribuovaný-charakter-systému-Git-Přisp%C3%ADván%C3%AD-do-projektu
