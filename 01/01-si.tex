@@ -1,7 +1,7 @@
 %!TEX root=../oi-magistr-si.tex
 \section[TPJ - sémantiky: operační, denotační]{Sémantika: operační sémantika, denotační sémantika, pevný bod funkce, vázání jmen, stav programu a data.}
 
-\noindent Sémantika programovacích jazyků je v teorii programovacích jazyků obor zabývající se důsledným matematickým popisem významu programovacího jazyka \cite{wiki:semantika}.
+\noindent Sémantika programovacích jazyků je v teorii programovacích jazyků \textbf{obor} zabývající se \textbf{důsledným matematickým popisem významu} programovacího jazyka \cite{wiki:semantika}.
 
 \noindent 3 hlavní charakteristiky jazyka jsou: 
 
@@ -11,7 +11,7 @@
 \item \textbf{pragmatika} závislostí konstrukcí na nositeli - implementace.
 \end{itemize}
 
-Operační sémantika je přístup, který definuje sémantiku programovacího jazyka tak, že určí jak je libovolný program vykonán na počítači, jehož činnost je známa. Může to být nějaký abstraktní stroj, který je dostatečně jednoduchý pro snadné pochopení jeho činnosti (například Turingův stroj). Operační sémantika potom specifikuje, jak tento stroj zpracovává program v definovaném jazyku.
+\textbf{Operační sémantika} je \textbf{přístup}, který \textbf{definuje sémantiku} programovacího jazyka tak, že určí jak je libovolný program vykonán na počítači, jehož činnost je známa. Může to být nějaký abstraktní stroj, který je dostatečně jednoduchý pro snadné pochopení jeho činnosti (například Turingův stroj). Operační sémantika potom specifikuje, jak tento stroj zpracovává program v definovaném jazyku.
 
 \paragraph{Operační exekuce}
 
@@ -173,13 +173,22 @@ Y fact =
 \noindent \texttt{Y fact} je pevný bod funkce, která počítá faktoriál.
 
 \subsection{Vázání jmen}
+Vázání jmen se vyskytuje v lambda kalkulu.
+\paragraph{$\lambda$-kalkul} Je formální popis, který slouží jako základ pro funkcionální jazyky, takže všechny konstrukce v těchto jazycích jdou přepsat právě na $\lambda$-kalkul. Základní prvky $\lambda$-kalkulu jsou tři následující:
 \begin{itemize}
-\item Vázání jmen se vyskytuje v lambda kalkulu.
+\item \textbf{Proměnné} Obyčejné proměnné, tak jak je znáte z jiných jazyků, většinou se značí \texttt{x,y,z}.
+
+\item \textbf{Abstrakce} Definice funkce – představte si např. funkci \texttt{f(x) = x+2}, tak přesně taková funkce se v $\lambda$-kalkulu zapíše takto: \texttt{$\lambda$x.x+2}. Část mezi $\lambda$ a tečkou jsou parametry funkce (zde máme pouze jeden parametr) a za tečkou se nachází tělo funkce.
+
+\item \textbf{Aplikace} Volání funkce – když si vezmu naši funkci \texttt{f(x) = x+2}, tak ta se zavolá např. s argumentem 3 takto: \texttt{f(3)}. Funkce v $\lambda$-kalkulu se volají podobně, funkce se volá takto: \texttt{(f 3)}, tzn. nejdříve je uvedena funkce a poté její argumenty. Funkce f se v $\lambda$-kalkulu tedy zavolá takto: \texttt{($\lambda$x.x+2) 3}. Vysvětlení by mělo být už jasnější. Číslo 3 se dosadí za parametr \texttt{x} a přejde se do těla funkce, tam se ke 3 přičte 2 a výsledkem je 5.
+\end{itemize}
+
+\noindent Proměnná je v $\lambda$-výrazu \textit{vázaná}, pokud se jedná o parametr nějaké funkce, takže např. ve výrazu (\texttt{$\lambda$x.yx}) je \texttt{x} vázaná proměnná. Ostatní proměnné (v minulém příkladu \texttt{y}) jsou \textit{volné}. Proměnná se vždycky váže na nejbližsí lambdu vlevo, takže ve výrazu \texttt{($\lambda$x(($\lambda$x.x) w))} se proměnná \texttt{x} uprostřed výrazu váže na lambdu co je hned vlevo od ní a ne na tu úplně vlevo! Proměnná \texttt{w} je samozřejmě volná \cite{lambda}.
+
+\begin{itemize}
 \item Funkce, co mají jen vázané proměnné, vrátí při každém zavolání stejný výsledek. Funkce s volnými proměnnými jsou závislé na globálním kontextu.
 \item Funkce, co mají jen vázané proměnné, se v $\lambda$-kalkulu nazývají kombinátory.
 \end{itemize}
-
-\noindent Ve funkci \texttt{$\lambda$x.x} řekneme, že \texttt{x} je \textit{vázaná} proměnná, protože její výskyt v těle předcházel \texttt{$\lambda$.x}. Proměnná, které nepředchází \texttt{$\lambda$} je nazývána \textit{volná}
 
 $$\texttt{(}\lambda\texttt{x.xy)}$$
 
