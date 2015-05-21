@@ -1,8 +1,7 @@
 %!TEX root=../oi-magistr-si.tex
 \section[WA2 - Web. architektury, perzistence, WS, messaging]{Vhodnost nasazení jednotlivých webových architektur, sdílení dat, perzistence, webové služby a REST, asynchronnost, messaging.}
 
-\paragraph{Vhodnost nasazení jednotlivých webových architektur}
-Toto je podle Klímy spíš diskusní téma, to znamená použít zdravý rozum a být schopen přemýšlet, na co se hodí cloud. Třídy aplikací a způsoby jejich nasazení: desktop, klasické webové aplikace na aplikačním serveru, cloudová řešení.
+\paragraph{Vhodnost nasazení jednotlivých webových architektur} záleží na povaze projektu. Třeba kalkulačka nemusí být vůbec na webu, eshop může běžet na vlastním serveru někde na hostingu u kamaráda, bankovní aplikace by měla mít tlustého i tenkého klienta a s použitím enterprise funkcí jako J2EE, server na sdílení videa bude chtít svůj privátní cloud aby dobře škáloval.
 
 \priklad Elektronické bankovnictví, které má 20 let starý back-end legacy system naprogramovaný v COBOLu. Klienti přistupují přes webové JEE (JSP) rozhraní. zvážit architekturu systému vzhledem k nárůstu počtu klientů nebo růstu bank, zvážit privátní cloud vs. existující provideři AWS, Google, MS Azure.
 
@@ -10,7 +9,7 @@ Typická architektura (cloudové) aplikace. Je mnoho klientů, kteří interaguj
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=140mm]{17/images/cloud-architecture}
+\includegraphics[width=130mm]{17/images/cloud-architecture}
 \end{figure}
 
 \subsection{Sdílení dat, persistence}
@@ -49,4 +48,15 @@ A web service is a function that can be accessed by other programs over the web 
 \end{itemize}
 
 \subsection{Messaging}
-Synchronní (blokující) vs. asynchronní (neblokující) - granularita. Mezi aplikacemi nebo front-endem a back-endem (message driven beans, middleware, webservices, http, REST, sockety, AJAX) slouží zejména ke komunikaci a integraci aplikací. Mezi procesy (fronty) (cloudová řešení jako AWS Simple Queue Service, GAE Task Queue, MS Azure Queue) slouží zejména k dávkovém zpracování velkého množství dat, ale i na posílání jednoduchých zpráv.
+\noindent\textbf{Asynchronnost} znamená neblokující volání, dá se řešit třeba AJAXem nebo messagingem.
+
+Messaging může efektivně řešit škálování a load balancing. Na serveru je fronta zpráv, kterou si rozebírají jednotlivé servery. Dá se využít na schedulování úkolů co trvají dlouho (konverze videa).
+
+\textbf{JMS} (Java Messaging Service) dva módy: point-to-point (zprávy určené přímo někomu) nebo publish-subscribe (víc klientů se může subsribnout na nějaký topic)
+
+\paragraph{Cloudové fronty:} GAE Task Queue, AWS SImple Queue Service, MS Azure Queue.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=140mm]{17/images/messaging}
+\end{figure}

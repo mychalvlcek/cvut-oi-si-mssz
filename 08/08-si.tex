@@ -2,20 +2,14 @@
 \section[OSP - Přenositelnost, multiplatformnost]{Požadavky a pravidla pro tvorbu přenositelného kódu. Organizace projektů a struktura operačních systémů pro zajištění přenositelnosti mezi různými platformami (OS, CPU). Vnitřní a vnější reprezentace dat, převody mezi nimi, vztah k síťovým protokolům (endianing, serializace atd.)}
 
 \subsection{Požadavky a pravidla pro tvorbu přenositelného kódu}
-Při realizaci softwarových systémů často nemůžeme zanedbat cílovou hardwarovou architekturu stroje a musíme psát kód tak, aby jej bylo možné snadno upravit (ideálně pouze rekompilovat) pro běh na jiných platformách. V okamžiku kdy je nutné přímo interagovat s některou hardwarovou komponentou počítače (řídící jednotky, SCADA systémy, $\hdots$), se dostáváme až na úroveň, kdy musíme řešit věci, jako uspořádání bytů v proměnné apod. K základním požadavkům na přenositelnost zdrojového kódu patří:
+Při realizaci softwarových systémů často nemůžeme zanedbat cílovou hardwarovou architekturu stroje a musíme psát kód tak, aby jej bylo možné snadno upravit (ideálně pouze rekompilovat) pro běh na jiných platformách. V okamžiku kdy je nutné přímo interagovat s některou hardwarovou komponentou počítače (řídící jednotky, SCADA systémy, $\hdots$), se dostáváme až na úroveň, kdy musíme řešit věci, jako uspořádání bytů v proměnné apod.
 
-\begin{itemize}[itemsep=0px]
-\item psát čistě a používat jen to, co je jazykem deklarováno,
-\item pokud je to možné používat pouze standardizovaná API - POSIX, IEEE Std. 1003.1,
-\item nepředpokládat pořadí byte/char ve slovech - little versus big endian,
-\item nepředpokládat počet bitů v adresační jednotce (používat stdint.h - int32\_t, $\hdots$),
-\item psát kód proti knihovnám a nikoliv přímo proti konkrétním voláním služeb operačního systému (konkrétním makrům, číslům volání, atd.).
-\end{itemize}
+Nejjednodušší je použít virtual machine jako Java nebo .NET. Pokud píšeme v C, tak to chce: používat standardizovaná API (POSIX, IEEE Std. 1003.1,), nepředpokládat pořadí byte ve slovech (little endian, big endian), nepředpokládat počet bitů pro adresaci (32 vs 64), používat multiplatformní knihovny a nevolat přímo metody systému.
 
 \subsection{Organizace projektů a struktura operačních systémů pro zajištění přenositelnosti mezi různými platformami (OS, CPU)}
 
 Aby bylo možné snadno přenášet projekty mezi různými operačními systémy a jejich verzemi a hardwarovými architekturami, bylo definováno několik standardů a vyvinuto několik nástrojů, které mají tuto přenositelnost usnadnit:
-\paragraph{POSIX} - Portable Operating System Interface - standardy IEEE 1003 a ISO/IEC 9945 - definuje, co by měl poskytovat operační systém, jaké příkazy, jaké vlastnosti - na základě tohoto standardu je potom poměrně snadné převádět projekty mezi různými distribucemi Linuxu, UNIXY, atd. (uvádí se, že to je mnohdy jednodušší než převod projektů mezi různými verzemi Windows).
+\paragraph{POSIX} - Portable Operating System Interface - standardy IEEE 1003 a ISO/IEC 9945 - definuje, co by měl poskytovat operační systém, jaké příkazy, jaké vlastnosti - na základě tohoto standardu je potom poměrně snadné převádět projekty mezi různými distribucemi Linuxu, UNIXY, atd. (uvádí se, že to je mnohdy jednodušší než převod projektů mezi různými verzemi Windows). Definuje příkazy OS nezávislé na platformě.
 
 \paragraph{Filesystem hierarchy standard (FHS)} - dokument popisující, co má být ve kterém adresáři v linuxové distribuci, mezi typické adresáře patří
 \begin{itemize}[itemsep=0px]
@@ -39,7 +33,11 @@ Tyto nástroje zpracovávají vstupní soubory, které obsahují informace o pro
 
 Proces sestavování (build) softwarového balíku se dělí na část, která probíhá u vývojáře (vyžaduje ke svému běhu větší množinu nástrojů) a část, kterou spouští klient.
 
+Kompilace GNU balíků autoheader vygeneruje hlavičky na dané platformě, které se používají v kódu, autoconf vygeneruje soubor configure, který klient používá k vygenerování Makefilu, automake přechroustá vstupní Makefile do správného formátu pro configure.
+
 \subsection{Portace kódu a křížový překlad}
+Portace kódu znamená generování binárek pro jiné platformy: Native build to vygeneruje pro vlastní platformu. Cross build vygeneruje přímo binárky pro danou platformu. Cross-native build vygeneruje tool-chain, který vygeneruje binárky na dané platformě.
+
 Většinou není nutné, aby každý uživatel kompiloval software ze zdrojových kódů. Je možné dodávat konkrétní verzi zkompilovanou pro cílovou platformu. Pro sestavení programu se používá build toolchain (v případě použití GCC se označuje jako GNU Tool Chain). Ten zahrnuje jednak vlastní kompiler (např. GCC - GNU Compiler Collection) a dále nástroje pro vytváření knihoven, linker atd.
 
 Tento toolchain může kompilovat kód pro různé platformy. Na základě toho rozeznáváme native toolchain a cross-compiling toolchain (výsledné binární soubory běží na platformě toolchainu nebo na jiné platformě).
@@ -51,8 +49,12 @@ Tento toolchain může kompilovat kód pro různé platformy. Na základě toho 
 
 \subsection{Konverze vnitřních a vnějších/síťových formátů dat}
 
-Na to je tam slajd.. endianita, rozsah cisel
-https://rtime.felk.cvut.cz/osp/prednasky/osp-hw-and-porting.pdf
+\paragraph{Vnitřní:} závisí na architektuře
+\begin{itemize}
+\item \textbf{little endian} má bity zprava doleva, což je dobré pro binární operace - Intel, ARM
+\item \textbf{big endian} - bity zleva doprava, jako když čteme, PowerPC
+\end{itemize}
+\paragraph{Vnější:} Platformě nezávislé, třeba int a double - konverze v programovacím jazyku, Síťové: nutná (de)serializace např. JSON, XML, HTML,
 
 \begin{itemize}[itemsep=0px]
 \item little endian/big endian
