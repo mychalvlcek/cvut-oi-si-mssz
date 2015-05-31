@@ -37,8 +37,8 @@ $\forall v,v' \in (Num \cup Bool): \forall e \in Expr : e \rightsquigarrow^* v \
 \subsection{Polymorfní typy}
 Polymorfní typ je typ, jehož operace mohou být aplikovány na hodnoty jiného typu.
 \begin{itemize}
-\item \textbf{Rekurzivní} - používají se na zakodování seznamů a stromů
-\item \textbf{Univerzální}
+\item \textbf{Rekurzivní} - používají se na zakodování seznamů a stromů, obsahují více hodnot stejného typu \url{http://en.wikipedia.org/wiki/Recursive_data_type}
+\item \textbf{Univerzální} - generický typ, např. List<X>
 \item \textbf{parametrický polymorfismus} - pomocí něj lze zapsat funkce jedním stylem a zároveň zachovat bezpečné typování. Tzn. funkce je zapsána genericky a umí zpracovávat vstupy bez ohledu na jejich typ. Typický příklad je třeba funkce append která se může zavolat s jakýmkoliv typem a správně se vyhodnotí. Není potřeba deklarovat \texttt{append :Integer} nebo \texttt{append:Bool}.
 \item \textbf{ad-hoc polymorfismus} - jedna funkce může mít mnoho implementací na základě zpracování jednotlivých typů - přetěžování funkcí v Javě.
 \end{itemize}
@@ -47,10 +47,10 @@ Polymorfní typ je typ, jehož operace mohou být aplikovány na hodnoty jiného
 
 \subsection{Typy vyššího řádu}
 \begin{itemize}
-\item Product Type
-\item Union Type
+\item Product Type - např. tuple, 2 a více typů, 2 operandy ($A \times B$) \url{http://en.wikipedia.org/wiki/Product_type}
+\item Union Type - datová struktura, která může udržovat více fixních typů \url{http://en.wikipedia.org/wiki/Tagged_union}
 \item Function Type
-\item Record Type
+\item Record Type - klasický objekt, který má fieldy
 \end{itemize}
 
 Jde o takzvané monády a debuggable functions (tohle je spíš možné využití). 

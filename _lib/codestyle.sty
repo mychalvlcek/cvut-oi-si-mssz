@@ -172,3 +172,37 @@ keywords=[2]{
   breaklines=true,
   breakatwhitespace=false
 }
+
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily\scriptsize,
+  morestring=[b]",
+  moredelim=[s][\bfseries\color{Maroon}]{<}{\ },
+  moredelim=[s][\bfseries\color{Maroon}]{</}{>},
+  moredelim=[l][\bfseries\color{Maroon}]{/>},
+  moredelim=[l][\bfseries\color{Maroon}]{>},
+  morecomment=[s]{<?}{?>},
+  morecomment=[s]{<!--}{-->},
+  commentstyle=\color{DarkOliveGreen},
+  stringstyle=\color{blue},
+  identifierstyle=\color{red}
+}
+
+\lstdefinestyle{xml}{
+  language=XML,
+  basicstyle = \small\ttfamily,
+  identifierstyle=\color{black},
+  keywordstyle=\color{editorFuchsia},
+  stringstyle=\color{pochcanaZluta},
+  commentstyle=\color{darkgray},
+  backgroundcolor=\color{editorGray},
+  showspaces=false,
+  frame=single,
+  framesep=8pt,
+  xleftmargin=8pt,
+  xrightmargin=4pt,
+  tabsize=4,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false
+}

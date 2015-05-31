@@ -1,7 +1,7 @@
 %!TEX root=../oi-magistr-si.tex
 \section[TVS - Formální specifikace programu, model checking]{Formální specifikace programu. Verifikace pomocí metod automatického dokazování a metody model-checking.}
 
-Cíle kladené na požadavky specifikace. Musí být demonstrováno že požadavky jsou správné, úplné, přesné, konzistentní a testovatelné. Díky takto nadefinovaným požadavkům můžeme SW vefirikovat
+Cíle kladené na požadavky specifikace. Musí být demonstrováno že požadavky jsou \hl{správné, úplné, přesné, konzistentní a testovatelné}. Díky takto nadefinovaným požadavkům můžeme SW vefirikovat
 
 \paragraph{Formální verifikace} je technika založená na formálních metodách. Využívá matematicky založené jazyky, které umožňují \textbf{specifikaci} a \textbf{verifikaci} systémů:
 \begin{itemize}[itemsep=0px]
@@ -27,7 +27,7 @@ Verifikace je pak ověření, že systém splňuje specifikaci. Tzn. rozhodnutí
 Verifikace pomocí automatického dokazování je formální důkaz, že systém splňuje formální specifikaci. Temporální verifikace - je potřeba dokázat dosažitelnost, bezpečnost, živost. Nebo např. statická analýza (např. analýza ukazatelů v moderních kompilátorech)
 
 \subsection{Model-checking}
-Verifikace pomocí model-checkingu je budování konečného modelu (automatu) systému a kontrola vlastností úplným prohledáváním stavového prostoru. Může dojít k explozi stavů. Výhody: automatizace, rychlost, produkce protipříkladů při nesplnění.
+\hl{Verifikace pomocí model-checkingu je budování konečného modelu (automatu) systému a kontrola vlastností úplným prohledáváním stavového prostoru}. Může dojít k explozi stavů. Výhody: automatizace, rychlost, produkce protipříkladů při nesplnění.
 
 \paragraph{Způsoby verifikace modelů}
 
@@ -40,7 +40,7 @@ Verifikace pomocí model-checkingu je budování konečného modelu (automatu) s
 
 \begin{itemize}[itemsep=0px]
 \item \textbf{Atomický výrok} = základní tvrzení popisující daný systém (výrazy, konstanty, predikátové symboly). Je algoritmicky rozhodnutelný na základě daného stavu (ohodnocení všech proměnných)
-\item \textbf{Kripkeho strukrura} = typ nedeterministického konečného automatu. Kripkeho struktura je trojice $(S, T, I)$, kde $S$ = konečná množ. stavů $T \subseteq S\times S$ je přechodová relace $I: S \rightarrow 2^{AP}$ je interpretace množiny atomických propozic.
+\item \textbf{Kripkeho strukrura} = typ \hl{nedeterministického konečného automatu}. Kripkeho struktura je trojice $(S, T, I)$, kde $S$ = konečná množ. stavů $T \subseteq S\times S$ je přechodová relace $I: S \rightarrow 2^{AP}$ je interpretace množiny atomických propozic.
     \begin{itemize}[itemsep=0px]
     \item \textbf{Rozšířená Kripkeho struktura} je čtveřice $(S, T, I, s_0)$, kde $(S, T, I)$ je Krip. Struktura a $s_0$ je počáteční stav.
     \item \textbf{Kripkeho přechodový systém} je pětice $(S, T, I, s_0, L)$, kde $(S, T, I, s_0)$ je Rozšiř. Krip. Struktura a $L: T \rightarrow Act$ je značkovací funkce.

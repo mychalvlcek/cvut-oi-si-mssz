@@ -30,7 +30,7 @@ UDDI (The Universal Description, Discovery and Integration Service) poskytuje me
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=80mm]{10/images/uddi}
+\includegraphics[width=100mm]{10/images/uddi}
 \end{figure}
 
 \subsection{Technologie a protokoly}
@@ -40,28 +40,44 @@ UDDI (The Universal Description, Discovery and Integration Service) poskytuje me
 \item klient/server model
 \item synchronní volání klienta - je blokován dokud server neodpoví
 \item může nastat chyba v případě chyby sítě
-% \item obrázek vlevo
 \end{itemize}
+
+\paragraph{Postup} Nejprve proběhne jednoduché zabalení parametrů a identifikátorů procedury do formy vhodné pro přenos mezi počítači (tzv. \textit{marshalling} (serializace)). Poté se balíček odešle. Balíček se na vzdáleném místě rozbalí, zjistí se o jakou proceduru jde (\textit{unmarshalling}). Následuje samotné zavolání a provedení procedury. Výsledek procedury se opět zabalí a odešle zpět. První počítač výsledek opětovně rozbalí. A přijatá hodnota se předá proceduře.
+
 \subsubsection*{CORBA (Common Object Request Broker Architecture)}
 \begin{itemize}[itemsep=0px]
 \item standard, který umožňuje komunikaci mezi různými platformami a jazyky
-\item jazykově, technologicky a platformě nezávislý
+\item \hl{jazykově, technologicky a platformě nezávislý}
 \item specifikace zahrnuje: silné typování, výjimky, síťový protokol
-\item CORBA Interface Definition Language
+\item CORBA IDL (Interface Definition Language)
 \item transakce, security, marshalling
-% \item obrázek vpravo
 \end{itemize}
+
+\hl{Je to objektová sběrnice, která objektům umožňuje transparentně vysílat požadavky (requests) směrem k jiným objektům (ať již lokálním nebo vzdáleným) a následně od těchto objektů přijímat odpovědi (replies).} Toto prostředí je nezávislé jak na programovacím jazyce, tak na operačním systému či hardwarové  platformě.
+
+Pro komunikaci mezi CORBA objekty jsou důležité specifikace jejich rozhraní v  jazyce IDL (Interface Definition Language). Ty slouží jako jakási forma kontraktu mezi CORBA objekty a jejich potenciálními klienty jinak řečeno, \hl{klient volá pouze metody nad rozhraním definovaným v IDL, a nestará se o to, jakým způsobem je daný objekt implementován.} IDL specifikace rozhraní jsou následně, s pomocí IDL kompilátoru, mapovány do konkrétních programovacích jazyků, ve kterých jsou již pak dané CORBA objekty implementovány. Použitím tohoto mechanismu dochází k oddělení implementace CORBA objektů od jejich rozhraní, čímž se dosahuje již jednou zmíněné nezávislosti CORBA prostředí na programovacím jazyce.
+
+\paragraph{Volání metod CORBA objektů}
+\hl{Vzdálený CORBA objekt} je v klientském adresovém prostoru \hl{zastupován jiným objektem, tzv. \textit{proxy}}. Proxy má obvykle stejné rozhraní jako cílový objekt, a jeho metodami jsou tzv. \hl{\textit{stuby}} (stubs). Stubem se označuje kód, který vezme všechny parametry volání, vloží je spolu s identifikací dané operace do zprávy (marshalling) a tuto zprávu předá jádru ORBu k doručení směrem k cílovému objektu. Na straně serveru předá ORB došlou zprávu skeletonu. Úkolem skeletonu je vyjmout z ní identifikaci požadované operace spolu s jejími parametry, a tuto 
+operaci zavolat nad implementací CORBA objektu. Formát zpráv předávaných mezi klientem a serverem je specifikován protokolem  IIOP (Internet Inter-ORB Protocol), který zajišťuje interoperabilitu mezi ORBy různých výrobců.
+Z popsaného mechanismu je patrno, že lokální volání metody nad proxy má tedy za následek pro klienta transparentní vyvolání odpovídající metody nad vzdáleným objektem (tento mechanismus již známe z RPC). Poznamenejme pouze, že kód klientského proxy i serverovského skeletonu je automaticky generován IDL kompilátorem na základě popisu rozhraní cílového CORBA objektu \cite{corba}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=80mm]{10/images/corba}
+\caption{CORBA}
+\end{figure}
+
 \subsubsection*{DCOM (Distributed Component Object Model)}
 \begin{itemize}[itemsep=0px]
-\item microsoftí CORBA (konkurent)
+\item \hl{microsoftí CORBA} (konkurent)
 \item garbage collecting - uvolnění referencí držených klientem (např. při ztrátě spojení)
 \end{itemize}
 \subsubsection*{WSDL (Web Services Description Language)}
 \begin{itemize}[itemsep=0px]
-\item XML-based jazyk, který poskytuje popis (rozhraní) servici
-\item služby jsou definovány jako množina síťových endpointů (portů s adresami a
-bindováním)
-\item popisuje veřejný interface servici
+\item \hl{XML-based jazyk, který poskytuje popis (rozhraní) služby}
+\item služby jsou definovány jako množina síťových endpointů (portů s adresami a bindováním)
+\item popisuje veřejný interface služby
 \end{itemize}
 \subsubsection*{REST (Representational State Transfer)}
 \begin{itemize}[itemsep=0px]
@@ -88,16 +104,24 @@ Jelikož veškerá komunikace mezi službami je založená na posílání zpráv
 \item navrženo jako object-access protokol
 \end{itemize}
 
+\begin{wrapfigure}{r}{0.35\textwidth}
+  \begin{center}
+    \includegraphics[width=0.28\textwidth]{10/images/soap-message}
+  \end{center}
+  \vspace{-10px}
+  \caption{SOAP zpráva}
+\end{wrapfigure}
+
 \paragraph{Struktura zprávy v SOAP}
 Každá zpráva dodržující podmínky kladené SOAP je v podstatě balíček (obálka, angl. envelope). Tento balíček obsahuje hlavičku (angl. head) a tělo (angl. body). Hlavička se skládá z několika bloků, které obsahují metainformace. Hlavička je nepovinná (tzn. může být vynechána). Metainformace v sobě ukrývají část komunikační logiky a obecně umožňují zavádět nová rozšíření. Typicky hlavička obsahuje nutné informace pro všechny služby, které mohou zprávu obdržet. Cílová služba potom na základě těchto informací rozhodne o způsobu zpracování zprávy. Tělo obsahuje samotná data (ve formátu XML). Tělo může také obsahovat sekci pro
 chyby (angl. faults), která obsahuje logiku pro zpracování výjimek. Většinou jsou v této části uloženy jednoduché zprávy, které slouží k odeslání informací o chybě při výskytu výjimky. SOAP zahrnuje také prostředky pro posílání dat, která jsou těžko popsatelná pomocí XML (binární data, např. obrázky). Takováto data se posílají jako přílohy (angl. attachments).
 
 \subsection{Kódování obsahu}
-Posílaný obsah je potřeba nějakým způsobem reprezentovat. Požadavky jsou aby \textbf{reprezentace} (zakódování) byla lidsky \textbf{čitelná}, \textbf{neukecaná} (binary efficient - chceme posílat co nejmenší obsah), platformně \textbf{nezávislá} a \textbf{standardizovaná}.
+\hl{Posílaný obsah} je potřeba nějakým způsobem reprezentovat. Požadavky jsou aby \hl{\textbf{reprezentace}} (zakódování) byla lidsky \hl{\textbf{čitelná}, \textbf{neukecaná}} (binary efficient - chceme posílat co nejmenší obsah), platformně \textbf{nezávislá} a \textbf{standardizovaná}.
 
 \begin{itemize}[itemsep=0px]
 \item XML - příliš ukecané
-\item JSON - používané
+\item \hl{JSON - používané}
 \item YAML
 \item buffers by Google
 \end{itemize}

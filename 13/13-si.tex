@@ -17,6 +17,16 @@ SW chyba je prezentace toho, že program dělá něco nepředpokládaného. Je t
 
 \subsection{Kategorie SW chyb}
 
+\begin{itemize}[itemsep=0px]
+\item \hl{Chyby UI} - vstupy (nápověda), výstupy (rychlost odezvy)
+\item \hl{Chyby omezení} - výjimky, výpočetní chyby
+\item \hl{Procesní chyby} - chyba při první inicializaci, zátěž, souběh více vláken
+\item \hl{Chyby vedení} - stará verze knihovny, slabá doc
+\item \hl{Chyby požadavků, vlastností a funkčnosti} - neúplné, nejednoznačné
+\item \hl{Strukturální chyby} - logika (neporozumění log. operátorům), GOTO, konverze typů
+\item \hl{Datové chyby} - specifikace objektů
+\item \hl{Chyby implementace} - syntaktické chyby, chyby paměti, hranice pole
+\end{itemize}
 \paragraph{Chyby uživatelského rozhraní}
 \begin{itemize}[itemsep=0px]
 \item Problémy s funkčností - program nedělá něco, co by měl dělat nebo to dělá nevhodně (zmatečně, neúspěšně), lze některé operace provést obtížně.
@@ -230,7 +240,7 @@ SW chyba je prezentace toho, že program dělá něco nepředpokládaného. Je t
 
 Optimalizovat testování chceme za účelem snížení jeho časové náročnosti. Např. u PLC chceme testovat instrukci, která má 5 parametrů a každý z nich může nabývat 17ti hodnot. To je $17^5$ kombinací (1 419 857) tedy cca 230 dnů testování.
 
-V praxi se ale ukázalo, že většina chyb nevzniká při všech 5ti nastavených parametrech, ale při interakci jen několika z nich. Vytvářejí se pak testy, které pokrývají jen všechny možné k-tice (ne všechny kombinace). Pomocí následujících metod se dá počet testovaných případu redukovat.
+V praxi se ale ukázalo, že většina chyb nevzniká při všech 5ti nastavených parametrech, ale při interakci jen několika z nich. Vytvářejí se pak testy, které pokrývají jen všechny možné k-tice (ne všechny kombinace). Pomocí následujících metod se dá počet testovaných případů redukovat.
 
 \subsubsection{Princip párového testování}
 Jak již bylo zmíněno, při \textbf{ideálním testovacím plánu} by bylo nutné projít všechny kombinace hodnot parametrů, tj. $1 419 857 = 17^5$ kombinací - 230 dnů testování.
@@ -295,9 +305,11 @@ Ortogonální pole není jednoduché nalézt, testovací případy musí být ba
 \end{itemize}
 
 \subsection{Testování automatů}
-Konečný automat je výborný model pro testování aplikací řízených pomocí menu (ovládání aplikace se provádí pomocí výběru položek z menu).
+\hl{Konečný automat je výborný model pro testování aplikací řízených pomocí menu} (ovládání aplikace se provádí pomocí výběru položek z menu).
 
 Vrcholy zobrazují stavy (stav aplikace). Hrany mezi stavy reprezentují vyběr položky menu (a tím přechod do dalšího stavu). Automat by měl být silně souvislý, pokud existují oddělené stavy (izolované), tak tyto stavy zavání chybou, jsou podezřelé (nevede k nim položka v menu).
+
+\vspace{-10px}
 
 \paragraph{Skryté stavy}
 Test nelze zahájit, pokud systém není potvrzením způsobem v počátečním stavu. Dát si pozor na skryté stavy. Při testování SW můžeme předpokládat věci, které nemusí obecně platit (např. že víme, ve kterém stavu se systém nachází). Pokud existují skryté stavy tak se typicky nejedna o jeden či dva stavy, ale o celý stavový prostor.
@@ -308,8 +320,8 @@ Test nelze zahájit, pokud systém není potvrzením způsobem v počátečním 
 \item identifikuj vstupy
 \item definuj kódy vstupu
 \item idenfikuj stavy
-\item definuj kódovani stavů
-\item identifikuj výstupni akce
+\item definuj kódovaní stavů
+\item identifikuj výstupní akce
 \item definuj kódování výstupních akcí
 \item specifikuj tabulku přechodů a tabulku výstupů - a zkontroluj ji
 \item navrhni testy
@@ -325,7 +337,7 @@ Nechť $L$ je \textbf{množina vstupních sekvencí} a $q, q'$ dva stavy. $L$ \t
 
 Množina vstupních sekvencí $W$ se nazývá \textbf{charakterizační množina}, jesltiže může rozlišit jakékoliv dva stavy automatu.
 
-\begin{itemize}
+\begin{itemize}[itemsep=0px]
 \item \textbf{Pokrytí stavů} je množina vstupních sekvencí $L$ taková, že lze nalézt prvek množiny $L$, kterým se lze dostat do jakéhokoliv žádaného stavu z počátečního stavu $q_0$.
 \item \textbf{Pokrytí přechodů} minimálního automatu je množina vstupních sekvencí $T$, která je pokrytím stavů a uzavřená z hlediska pravé kompozice s množinou vstupů $Input$.
 

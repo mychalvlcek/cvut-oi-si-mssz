@@ -3,13 +3,13 @@
 
 \subsection{White/black box testování}
 
-Při \textbf{testování černé skříňky} se zaměřujeme na vstupy a výstupy programu bez znalosti, jak je naimplementován. Produkt je černou skříňkou, do které se nelze podívat, vidíme jen jak vypadá a jak se chová navenek. Smyslem je analyzovat chování softwaru vzhledem k očekávaným vlastnostem tak, jak ho vidí uživatel. Do této kategorie spadají skoro všechny druhy \textbf{testů uživatelských rozhraní}, akceptační testy, testování podle scénářů, které krok za krokem provádějí uživatele tím, co má zadat a jaké jsou očekávané reakce systému.
+Při \textbf{testování černé skříňky} se zaměřujeme na \hl{vstupy a výstupy programu bez znalosti, jak je naimplementován}. Produkt je černou skříňkou, do které se nelze podívat, vidíme jen jak vypadá a jak se chová navenek. Smyslem je analyzovat chování softwaru vzhledem k očekávaným vlastnostem tak, jak ho vidí uživatel. Do této kategorie spadají skoro všechny druhy \textbf{testů uživatelských rozhraní}, akceptační testy, testování podle scénářů, které krok za krokem provádějí uživatele tím, co má zadat a jaké jsou očekávané reakce systému.
 
-Při \textbf{testování bílé skříňky}, má tester přístup ke zdrojovému kódu a testuje produkt na základě něj. Vidí nejen co se děje na povrchu skříňky, ale i vnitřní reakce systému. Testuje se tak, aby se pokryly všechny cesty a okrajové hodnoty. Třeba \textit{unit testing}. Počet testovacích případů se dá snížit pomocí ortogonálních polí, latinských čtverců.
+Při \textbf{testování bílé skříňky}, má tester \hl{přístup ke zdrojovému kódu} a testuje produkt na základě něj. Vidí nejen co se děje na povrchu skříňky, ale i vnitřní reakce systému. Testuje se tak, aby se pokryly \hl{všechny cesty a okrajové hodnoty}. Třeba \hl{\textit{unit testing}}. Počet testovacích případů se dá snížit pomocí ortogonálních polí, latinských čtverců.
 
 \subsection{Strukturální analýza}
 
-Strukturální analýza je převedení programu na model (typicky graf). V grafu se pak dají zobrazit toky řízení, toky dat, stromy závislosti volání funkcí, či grafy konečních automatů
+\hl{Strukturální analýza je převedení programu na model} (typicky graf). V grafu se pak dají zobrazit toky řízení, toky dat, stromy závislosti volání funkcí, či grafy konečných automatů.
 
 \begin{figure}[h!]
 \centering
@@ -34,7 +34,7 @@ Strukturální analýza je převedení programu na model (typicky graf). V grafu
 \end{itemize}
 
 \subsection{Statická a dynamická analýza}
-\textbf{Statická analýza} je model checking (viz následující otázka) a testování konečného automatu.
+\hl{\textbf{Statická analýza} je model checking} (viz následující otázka) a testování konečného automatu.
 
 Analýza kódu, hledájí se v něm logické chyby jako např. nekonečný cyklus, nepoužívané proměnné, přiřazení místo porovnání atd. Řeší to např. pluginy do IDE (nebo IDE samotné).
 
@@ -46,7 +46,7 @@ Analýza kódu, hledájí se v něm logické chyby jako např. nekonečný cyklu
 
 \paragraph{Hlavní cesta} Cesta z $n_i$ do $n_j$ je hlavní, jestliže je to jednoduchá cesta a není žádnou vlastní podcestou jakékoliv jiné jednoduché cesty (tj. je maximální).
 
-\noindent Cílem je nalézt hlavní cesty. \textbf{Princip algoritmu:}
+\noindent \hl{Cílem je nalézt hlavní cesty.} \textbf{Princip algoritmu:}
 
 \begin{itemize}[itemsep=0px]
 \item Nalezni cesty délky 0 (uzly).
@@ -56,7 +56,7 @@ Analýza kódu, hledájí se v něm logické chyby jako např. nekonečný cyklu
 \end{itemize}
 
 \subsection{Analýza datových toků (metoda du-cest)}
-Tok datových hodnot: testy zajišťující, že hodnoty vzniklé na jednom místě jsou použity správně na jiných místech. 
+Tok datových hodnot: testy zajišťující, že \hl{hodnoty vzniklé na jednom místě jsou použity správně na jiných místech}. 
 
 \begin{itemize}[itemsep=0px]
 \item \textbf{Definice} \textit{def}: místo, kde je hodnota proměnné uložena do paměti. 
@@ -93,6 +93,13 @@ Jsou třídy A $\leftarrow$ B.
 
 \item \textbf{SVA} - přepsání metody v prarodiči, později rodič taky přepíše tu metodu a potomek začne volat rodiče, ne prarodiče
 \end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=110mm]{14/images/oo-problem-polymorfismu}
+\vspace{-5px}
+\caption{Problém polymorfismu}
+\end{figure}
 
 \paragraph{Testování párových sekvencí}
 

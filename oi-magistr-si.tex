@@ -31,7 +31,8 @@
 \usepackage{wrapfig}
 
 % utrzky kodu
-\usepackage{listings,xcolor}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \usepackage{inconsolata}
 \usepackage{algorithm}
 \usepackage{algorithmicx} %slouží pro zápis algoritmů
@@ -45,7 +46,8 @@
 \usepackage{wasysym} % znak vyplnene sipky
 \usepackage{setspace} % vyska radku
 \usepackage{changepage} % zmena okraju stranky
-\usepackage{soul}
+% \usepackage{soul}
+\usepackage{soulutf8}
 \usepackage{datetime} % datum a cas
 \usepackage{tabu} % vylepsene tabulky - ruzne siroke ohraniceni
 \usepackage{pgfgantt}
@@ -68,6 +70,10 @@
 
 \begin{document}
     \selectlanguage{czech}
+    
+    % \renewcommand{\hl}[1]{#1} % vypnuti/zapnuti zlutych zvyrazneni
+    \definecolor{blond}{rgb}{0.98, 0.94, 0.75}
+    \sethlcolor{blond}
 
     %%  Titulni strana  %%
     \rendercoverpage
